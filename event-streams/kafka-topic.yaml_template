@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#apiVersion: eventstreams.ibm.com/v1beta2
+#apiVersion: eventstreams.ibm.com/v1
 #kind: KafkaTopic
 #metadata:
 #  name: orders
@@ -26,7 +26,7 @@
 #  replicas: 3
 #  topicName: ORDERS
 #---
-apiVersion: eventstreams.ibm.com/v1beta2
+apiVersion: eventstreams.ibm.com/v1
 kind: KafkaTopic
 metadata:
   name: products
@@ -41,7 +41,7 @@ spec:
   replicas: 3
   topicName: PRODUCTS
 ---
-apiVersion: eventstreams.ibm.com/v1beta2
+apiVersion: eventstreams.ibm.com/v1
 kind: KafkaTopic
 metadata:
   name: deliveries
@@ -56,7 +56,7 @@ spec:
   replicas: 3
   topicName: DELIVERY
 ---
-apiVersion: eventstreams.ibm.com/v1beta2
+apiVersion: eventstreams.ibm.com/v1
 kind: KafkaTopic
 metadata:
   name: inventory
@@ -71,7 +71,7 @@ spec:
   replicas: 3
   topicName: INVENTORY
 ---
-apiVersion: eventstreams.ibm.com/v1beta2
+apiVersion: eventstreams.ibm.com/v1
 kind: KafkaTopic
 metadata:
   name: pricing
@@ -86,7 +86,7 @@ spec:
   replicas: 3
   topicName: PRICING
 ---
-apiVersion: eventstreams.ibm.com/v1beta2
+apiVersion: eventstreams.ibm.com/v1
 kind: KafkaTopic
 metadata:
   name: cancellations
@@ -101,7 +101,7 @@ spec:
   replicas: 3
   topicName: CANCELLATIONS
 ---
-apiVersion: eventstreams.ibm.com/v1beta2
+apiVersion: eventstreams.ibm.com/v1
 kind: KafkaTopic
 metadata:
   name: returns
@@ -116,7 +116,7 @@ spec:
   replicas: 3
   topicName: RETURNS
 ---
-apiVersion: eventstreams.ibm.com/v1beta2
+apiVersion: eventstreams.ibm.com/v1
 kind: KafkaTopic
 metadata:
   name: customer-service
@@ -131,7 +131,7 @@ spec:
   replicas: 1
   topicName: CUSTOMER.SERVICE
 ---
-apiVersion: eventstreams.ibm.com/v1beta2
+apiVersion: eventstreams.ibm.com/v1
 kind: KafkaTopic
 metadata:
   name: customers
@@ -146,7 +146,7 @@ spec:
   replicas: 3
   topicName: CUSTOMERS
 ---
-apiVersion: eventstreams.ibm.com/v1beta2
+apiVersion: eventstreams.ibm.com/v1
 kind: KafkaTopic
 metadata:
   name: loyalty-app

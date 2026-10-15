@@ -1,10 +1,10 @@
 #!/bin/sh
 if [ ! command -v oc &> /dev/null ]; then echo "oc could not be found"; exit 1; fi;
-CP4I_VER='16.1.2' 
+if [ -z "$CP4I_VER" ]; then CP4I_VER='16.1.2'; fi
 if [ -z "$CP4I_VER" ]; then echo "CP4I_VER not set, it must be provided on the command line."; exit 1; fi;
 echo "CP4I_VER has been set to " $CP4I_VER
 case "$CP4I_VER" in
-   "2023.4" | "16.1.0" | "16.1.1" | "16.1.2" )
+   "2023.4" | "16.1.0" | "16.1.1" | "16.1.2" | "CD" )
       ;;
    *)
       echo "This script is for CP4I v2023.4 or v16.1.0"
@@ -34,13 +34,18 @@ case "$CP4I_VER" in
     "16.1.0" | "16.1.1" | "16.1.2" )
         ES_VERSION='12.1.0'
         ;;
+    "CD" )
+        ES_VERSION='13.0.3'
+        ;;
 esac
 echo "Getting Bootstrap information..."
 #ES_BOOTSTRAP_SERVER=$(oc get eventstreams ${ES_INST_NAME} -n ${ES_NAMESPACE} -o=jsonpath='{range .status.kafkaListeners[*]}{.type} {.bootstrapServers}{"\n"}{end}' | awk '$1=="authsslsvc" {print $2}')
 ES_BOOTSTRAP_SERVER=$(oc get eventstreams ${ES_INST_NAME} -n ${ES_NAMESPACE} -o=jsonpath='{range .status.kafkaListeners[*]}{.name} {.bootstrapServers}{"\n"}{end}' | awk '$1=="authsslsvc" {print $2}')
 echo $ES_BOOTSTRAP_SERVER
 echo "Updating template with Bootsrap info..."
-( echo "cat <<EOF" ; cat templates/template-es-kafka-connect.yaml ;) | \
+# Additional echo statements needed to avoid warnings on Windows git bash:
+# sh: line 59: warning: here-document at line 1 delimited by end-of-file (wanted `EOF')
+( echo "cat <<EOF" ; cat templates/template-es-kafka-connect.yaml ; echo ; echo "EOF") | \
     CP4I_VER=${CP4I_VER} \
     ES_BOOTSTRAP_SERVER=${ES_BOOTSTRAP_SERVER} \
     ES_VERSION=${ES_VERSION} \

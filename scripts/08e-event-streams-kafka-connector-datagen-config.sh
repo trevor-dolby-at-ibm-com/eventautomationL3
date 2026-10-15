@@ -15,7 +15,10 @@ ES_CERT_PWD=$(oc get secret ${ES_INST_NAME}-cluster-ca-cert -n ${ES_NAMESPACE} -
 #ES_SCHEMA_REGISTRY_URL=$(oc get eventstreams ${ES_INST_NAME} -n ${ES_NAMESPACE} -o=jsonpath='{range .status.endpoints[*]}{.name} {.uri}{"\n"}{end}' | awk '$1=="apicurioregistry" {print $2}')
 ES_SCHEMA_REGISTRY_URL=$(oc get eventstreams ${ES_INST_NAME} -n ${ES_NAMESPACE} -o=jsonpath='{.status.endpoints[?(@.name=="apicurioregistry")].uri}')
 echo "Updating template with config info..."
-( echo "cat <<EOF" ; cat templates/template-es-kafka-connector-datagen.yaml ;) | \
+
+# Additional echo statements needed to avoid warnings on Windows git bash:
+# sh: line 59: warning: here-document at line 1 delimited by end-of-file (wanted `EOF')
+( echo "cat <<EOF" ; cat templates/template-es-kafka-connector-datagen.yaml ; echo ; echo "EOF") | \
     ES_USER_PWD=${ES_USER_PWD} \
     ES_CERT_PWD=${ES_CERT_PWD} \
     ES_SCHEMA_REGISTRY_URL=${ES_SCHEMA_REGISTRY_URL} \
